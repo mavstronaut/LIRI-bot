@@ -6,7 +6,10 @@ exports.spotify = {
 };
 
 exports.omdb = {
-  apikey: process.env.OMDB_ID
+  id: process.env.OMDB_ID
 };
 
-exports.
+exports.bands = {
+  id: process.env.BANDS_ID,
+  secret: process.env.BANDS_SECRET
+}
