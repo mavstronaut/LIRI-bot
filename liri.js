@@ -2,22 +2,24 @@ require("dotenv").config();
 var keys = require("./keys.js");
 
 var spotify = new Spotify(keys.spotify);
+var omdb = new 
 
-let fs = require('fs'); //file system
-let twitter = require('twitter');
+// let fs = require('fs'); //file system
+// let twitter = require('twitter');
 let Spotify = require('node-spotify-api');
-let request = require('request');
-var inquirer = require('inquirer');
+// let request = require('request');
+// var inquirer = require('inquirer');
 
 
 let space = "\n"
 let header = "Sure. I'll share what I found: "
-
+let input = process.argv[1];
+let param = process.argv[2];
 
 
 // concert-this
-if (argv == "concert-this") {
-    async function(request) {
+if (process.argv[0] == "concert-this") {
+    async function(input, param) {
         
         console.log("starting concert-this")
         //   `node liri.js concert-this <artist/band name here>`
