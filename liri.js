@@ -3,20 +3,35 @@ var keys = require("./keys.js");
 
 var spotify = new Spotify(keys.spotify);
 
+let fs = require('fs'); //file system
+let twitter = require('twitter');
+let Spotify = require('node-spotify-api');
+let request = require('request');
+var inquirer = require('inquirer');
+
+
+let space = "\n"
+let header = "Sure. I'll share what I found: "
+
 
 
 // concert-this
-    //   `node liri.js concert-this <artist/band name here>`
+if (argv == "concert-this") {
+    async function(request) {
+        
+        console.log("starting concert-this")
+        //   `node liri.js concert-this <artist/band name here>`
 
-    //   * This will search the Bands in Town Artist Events API (`"https://rest.bandsintown.com/artists/" + artist + "/events?app_id=codingbootcamp"`) for an artist and render the following information about each event to the terminal:
+        //   * This will search the Bands in Town Artist Events API (`"https://rest.bandsintown.com/artists/" + artist + "/events?app_id=codingbootcamp"`) for an artist and render the following information about each event to the terminal:
 
-    //   * Name of the venue
+        //   * Name of the venue
 
-    //   * Venue location
+        //   * Venue location
 
-    //   * Date of the Event (use moment to format this as "MM/DD/YYYY")
+        //   * Date of the Event (use moment to format this as "MM/DD/YYYY")
 
-
+    }
+};
 
 // spotify-this-song
     //  `node liri.js spotify-this-song '<song name here>'`
@@ -70,4 +85,3 @@ var spotify = new Spotify(keys.spotify);
 
     //  * Edit the text in random.txt to test out the feature for movie-this and concert-this.
 
-    
