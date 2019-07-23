@@ -2,7 +2,8 @@ require("dotenv").config();
 var keys = require("./keys.js");
 
 var spotify = new Spotify(keys.spotify);
-var omdb = new omdb(keys.omdb);
+var omdb = new Omdb(keys.omdb);
+var bands = new Bands(keys.bands)
 
 // let fs = require('fs'); //file system
 // let twitter = require('twitter');
