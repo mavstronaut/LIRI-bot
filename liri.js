@@ -1,39 +1,61 @@
 require("dotenv").config();
+const fs = require('fs'); //file system
 var keys = require("./keys.js");
+const Spotify = require('node-spotify-api');
 
-var spotify = new Spotify(keys.spotify);
-var omdb = new Omdb(keys.omdb);
-var bands = new Bands(keys.bands)
-
-// let fs = require('fs'); //file system
 // let twitter = require('twitter');
-let Spotify = require('node-spotify-api');
 // let request = require('request');
 // var inquirer = require('inquirer');
 
 
+const spotify = new Spotify(keys.spotify);
+// const omdb = new Omdb(keys.omdb);
+// const bands = new Bands(keys.bands)
+
+
 let space = "\n"
 let header = "Sure. I'll share what I found: "
-let input = process.argv[1];
-let param = process.argv[2];
+let cmd = process.argv[1];
+let input = process.argv[2];
+let param = process.argv[3];
 
+
+
+//points to command functions
+if (cmd == "help") {
+    help()
+} else if (cmd == "concert-this") {
+    concertThis(input);
+} else if (cmd == "spotify-this-song") {
+    spotifyThisSong(input);
+} else if (cmd == "movie-this") {
+    movieThis(input);
+} else if (process.argv[0] == "do-what-it-says") {
+    doWhatItSays(input);
+} else {
+    console.log("Hey there, Ask me for help by typing `$help [command]`")
+};
+
+function help() {
+    console.log("You need help!");
+    console.log("just kidding, first enter a command");
+    console.log("Followed by what you want to search");
+}
 
 // concert-this
-if (process.argv[0] == "concert-this") {
-    async function(input, param) {
-        
-        console.log("starting concert-this")
-        //   `node liri.js concert-this <artist/band name here>`
+async function concertThis(input, param) {
 
-        //   * This will search the Bands in Town Artist Events API (`"https://rest.bandsintown.com/artists/" + artist + "/events?app_id=codingbootcamp"`) for an artist and render the following information about each event to the terminal:
+    //   `node liri.js concert-this <artist/band name here>`
 
-        //   * Name of the venue
+    //   * This will search the Bands in Town Artist Events API (`"https://rest.bandsintown.com/artists/" + artist + "/events?app_id=codingbootcamp"`) for an artist and render the following information about each event to the terminal:
 
-        //   * Venue location
+    //   * Name of the venue
 
-        //   * Date of the Event (use moment to format this as "MM/DD/YYYY")
+    //   * Venue location
 
-    }
+    //   * Date of the Event (use moment to format this as "MM/DD/YYYY")
+
+
 };
 
 // spotify-this-song
