@@ -7,8 +7,7 @@ const Spotify = require('node-spotify-api');
 // let request = require('request');
 // var inquirer = require('inquirer');
 
-
-const spotify = new Spotify(keys.spotify);
+var spotify = new Spotify(keys.spotify);
 // const omdb = new Omdb(keys.omdb);
 // const bands = new Bands(keys.bands)
 
