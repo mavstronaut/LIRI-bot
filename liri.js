@@ -11,38 +11,41 @@ var spotify = new Spotify(keys.spotify);
 // const omdb = new Omdb(keys.omdb);
 // const bands = new Bands(keys.bands)
 
-
 let space = "\n"
 let header = "Sure. I'll share what I found: "
 let cmd = process.argv[1];
 let input = process.argv[2];
-let param = process.argv[3];
+let param1 = process.argv[3];
+let param2 = process.argv[4];
 
+console.log("command is: " + cmd);
+console.log("input is: " + input);
+console.log("param1 is: " + param1);
+console.log("param2 is: " + param2);
 
+search = (input+" "+param1+" "+param2);
+console.log("the search string is: "+search)
 
 //points to command functions
-if (cmd == "help") {
-    help()
-} else if (cmd == "concert-this") {
+if (cmd == "concert-this") {
     concertThis(input);
 } else if (cmd == "spotify-this-song") {
-    spotifyThisSong(input);
+
+    spotifyThisSong(song);
 } else if (cmd == "movie-this") {
     movieThis(input);
-} else if (process.argv[0] == "do-what-it-says") {
-    doWhatItSays(input);
+} else if (cmd == "do-what-it-says") {
+    doWhatItSays();
 } else {
-    console.log("Hey there, Ask me for help by typing `$help [command]`")
+    console.log("Hey there, my commands are: ");
+    console.log("Search band info   --     concert-this [artist]");
+    console.log("Search song info   --     spotify-this-song [song]");
+    console.log("Find move info     --     movie-this [movie]");
+    console.log("See what happens   --     do-what-it-says");
 };
 
-function help() {
-    console.log("You need help!");
-    console.log("just kidding, first enter a command");
-    console.log("Followed by what you want to search");
-}
-
 // concert-this
-async function concertThis(input, param) {
+async function concertThis(search) {
 
     //   `node liri.js concert-this <artist/band name here>`
 
@@ -57,6 +60,14 @@ async function concertThis(input, param) {
 
 };
 
+async function spotifyThisSong(search) {
+    spotify
+        .search({ type: 'track', query: search })
+        .then(function(response) {
+        console.log(response);
+    }).catch(function(err) {
+        console.log(err);
+    });
 // spotify-this-song
     //  `node liri.js spotify-this-song '<song name here>'`
 
@@ -71,7 +82,7 @@ async function concertThis(input, param) {
     //  * The album that the song is from
  
     //  * If no song is provided then your program will default to "The Sign" by Ace of Base.
-
+};
 
 
 // movie-this
@@ -101,11 +112,31 @@ async function concertThis(input, param) {
 
 
 // do-what-it-says
+function doWhatItSays() {
+    whatdo = ""
     //  `node liri.js do-what-it-says`
-
+    rando = Math.floor(Math.random() * 3);
+    switch (rando) {
+        case 0:
+            fs.readFile("random.txt", "utf8", function(error, data) {
+                whatdo = data;
+        
+                if (error) {
+                    return console.log(error);
+                }
+            })
+            spotifyThisSong(whatdo);
+            break;
+        case 1:
+            whatdo = "Barnacle Goose"
+            concertThis(whatdo);
+            break;
+        case 2:
+            whatdo = "Saving Private Ryan"
+            movieThis(whatdo);
+            break;
     //  * Using the `fs` Node package, LIRI will take the text inside of random.txt and then use it to call one of LIRI's commands.
-
     //  * It should run `spotify-this-song` for "I Want it That Way," as follows the text in `random.txt`.
-
     //  * Edit the text in random.txt to test out the feature for movie-this and concert-this.
 
+};
