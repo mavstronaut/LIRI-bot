@@ -8,7 +8,6 @@ const Spotify = require('node-spotify-api');
 // var inquirer = require('inquirer');
 
 var spotify = new Spotify(keys.spotify);
-// const omdb = new Omdb(keys.omdb);
 // const bands = new Bands(keys.bands)
 
 let space = "\n"
@@ -105,7 +104,7 @@ function movieThis(search) {
 
     //    * This will output the following information to your terminal/bash window:
         // t = movietitle, y = year, plot is short, then the API key
-        let urlHit = "http://www.omdbapi.com/?t=" + movieName + "&y=&plot=short&apikey="+ //omdb key;
+        let urlHit = "http://www.omdbapi.com/?t=" + search + "&y=&plot=short&apikey="+"879a15d0";
 
         request(urlHit, function(err, res, body) {
             if (err) {
