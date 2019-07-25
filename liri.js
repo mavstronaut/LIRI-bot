@@ -97,10 +97,38 @@ function spotifyThisSong(search) {
 
 
 // movie-this
+function movieThis(search) {
+    if(!search) {
+        search = "Cloud Atlas"
+    }
     // `node liri.js movie-this '<movie name here>'`
 
     //    * This will output the following information to your terminal/bash window:
+        // t = movietitle, y = year, plot is short, then the API key
+        let urlHit = "http://www.omdbapi.com/?t=" + movieName + "&y=&plot=short&apikey="+ //omdb key;
 
+        request(urlHit, function(err, res, body) {
+            if (err) {
+                console.log('Error occurred: ' + err);
+                return;
+            } else {
+                let jsonData = JSON.parse(body);
+                output = space + header +
+                    space + 'Title: ' + jsonData.Title +
+                    space + 'Year: ' + jsonData.Year +
+                    space + 'Rated: ' + jsonData.Rated +
+                    space + 'IMDB Rating: ' + jsonData.imdbRating +
+                    space + 'Country: ' + jsonData.Country +
+                    space + 'Language: ' + jsonData.Language +
+                    space + 'Plot: ' + jsonData.Plot +
+                    space + 'Actors: ' + jsonData.Actors +
+                    space + 'Tomato Rating: ' + jsonData.Ratings[1].Value +
+                    space + 'IMDb Rating: ' + jsonData.imdbRating + "\n";
+    
+                console.log(output);
+                writeToLog(output);
+            }
+        });
    /* 
      * Title of the movie.
      * Year the movie came out.
@@ -119,7 +147,7 @@ function spotifyThisSong(search) {
    // * It's on Netflix!
 
    // * You'll use the `axios` package to retrieve data from the OMDB API. Like all of the in-class activities, the OMDB API requires an API key. You may use `trilogy`.
-
+};
 
 
 // do-what-it-says
