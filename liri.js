@@ -30,8 +30,10 @@ console.log("the search string is: "+search)
 if (cmd == "concert-this") {
     concertThis(input);
 } else if (cmd == "spotify-this-song") {
-
-    spotifyThisSong(song);
+    if (!search) {
+        search = "Barnacle Goose";
+    }
+    spotifyThisSong(search);
 } else if (cmd == "movie-this") {
     movieThis(input);
 } else if (cmd == "do-what-it-says") {
@@ -60,14 +62,23 @@ async function concertThis(search) {
 
 };
 
-async function spotifyThisSong(search) {
-    spotify
-        .search({ type: 'track', query: search })
-        .then(function(response) {
-        console.log(response);
-    }).catch(function(err) {
-        console.log(err);
+function spotifyThisSong(search) {
+    spotify.search({ type: 'track', query: search }, function(err, data) {
+        if (err) {
+            console.log('Error occurred: ' + err);
+            return;
+        } else {
+            output =
+                "Ch-ch-check out this info: " +
+                space + "Song Name: " + "'" + songName.toUpperCase() + "'" +
+                space + "Album Name: " + data.tracks.items[0].album.name +
+                space + "Artist Name: " + data.tracks.items[0].album.artists[0].name +
+                space + "URL: " + data.tracks.items[0].album.external_urls.spotify;
+            console.log(output);
+            writeToLog(output);
+        }
     });
+};
 // spotify-this-song
     //  `node liri.js spotify-this-song '<song name here>'`
 
@@ -82,7 +93,7 @@ async function spotifyThisSong(search) {
     //  * The album that the song is from
  
     //  * If no song is provided then your program will default to "The Sign" by Ace of Base.
-};
+
 
 
 // movie-this
@@ -124,7 +135,7 @@ function doWhatItSays() {
                 if (error) {
                     return console.log(error);
                 }
-            })
+            });
             spotifyThisSong(whatdo);
             break;
         case 1:
@@ -135,6 +146,7 @@ function doWhatItSays() {
             whatdo = "Saving Private Ryan"
             movieThis(whatdo);
             break;
+        };
     //  * Using the `fs` Node package, LIRI will take the text inside of random.txt and then use it to call one of LIRI's commands.
     //  * It should run `spotify-this-song` for "I Want it That Way," as follows the text in `random.txt`.
     //  * Edit the text in random.txt to test out the feature for movie-this and concert-this.
