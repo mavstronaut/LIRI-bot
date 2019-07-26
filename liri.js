@@ -60,8 +60,10 @@ function concertThis(search) {
             } else {
                 let jsonData = JSON.parse(body);
                 output = space + header +
-                    space + 'Title: ' + jsonData.Title +
-                    space + 'Year: ' + jsonData.Year +
+                    space + 'venue: ' + jsonData.venue.name
+                    space + 'Date: ' + jsonData.formatted_datetime +
+                    space + 'Location: ' + jsonData.formatted_location +
+
 
     
                 console.log(output);
