@@ -69,10 +69,12 @@ function concertThis(search) {
 
     axios.get("https://rest.bandsintown.com/artists/" + search + "/events?app_id=codingbootcamp")    
     .then(function(response) {
-                output = space + header +
-                    space + 'venue: ' + response.data[0].venue.name
-                    space + 'Date: ' + response.data[0].formatted_datetime +
-                    space + 'Location: ' + response.data[0].venue.city + " " + response.data[0].venue.region + " " + response.data[0].venue.country
+            var showDate = moment(response.data[0].datetime).format('MM/DD/YYYY');
+            output = space + header +
+                space + 'Venue: ' + response.data[0].venue.name +
+                space + 'Date: ' + showDate +
+                // space + 'Date: ' + response.data[0].formatted_datetime +
+                space + 'Location: ' + response.data[0].venue.city + " " + response.data[0].venue.region + " " + response.data[0].venue.country
         .catch(function(error) {
             if (error.response) {
             // The request was made and the server responded with a status code
@@ -160,6 +162,7 @@ function doWhatItSays() {
     rando = Math.floor(Math.random() * 3);
     switch (rando) {
         case 0:
+            // TODO: add readfile for different random commands. Log different for each search.
             fs.readFile("random.txt", "utf8", function(error, data) {
                 whatdo = data;
         
