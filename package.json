@@ -11,7 +11,7 @@
     "url": "git+https://github.com/mavstronaut/LIRI-bot.git"
   },
   "keywords": [],
-  "author": "",
+  "author": "mavstronaut",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/mavstronaut/LIRI-bot/issues"
@@ -20,6 +20,8 @@
   "dependencies": {
     "axios": "^0.19.0",
     "dotenv": "^8.0.0",
+    "fs": "0.0.1-security",
+    "inquirer": "^6.5.0",
     "moment": "^2.24.0",
     "node-spotify-api": "^1.1.1"
   }
