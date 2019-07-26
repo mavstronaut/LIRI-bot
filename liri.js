@@ -47,8 +47,34 @@ if (cmd == "concert-this") {
 
 // concert-this
 function concertThis(search) {
+    if (!search) {
+        search = "Trevor Hall"
+    }
 
+    let urlHit = "https://rest.bandsintown.com/artists/" + search + "/events?app_id=codingbootcamp";
 
+        request(urlHit, function(err, res, body) {
+            if (err) {
+                console.log('Error occurred: ' + err);
+                return;
+            } else {
+                let jsonData = JSON.parse(body);
+                output = space + header +
+                    space + 'Title: ' + jsonData.Title +
+                    space + 'Year: ' + jsonData.Year +
+                    space + 'Rated: ' + jsonData.Rated +
+                    space + 'IMDB Rating: ' + jsonData.imdbRating +
+                    space + 'Country: ' + jsonData.Country +
+                    space + 'Language: ' + jsonData.Language +
+                    space + 'Plot: ' + jsonData.Plot +
+                    space + 'Actors: ' + jsonData.Actors +
+                    space + 'Tomato Rating: ' + jsonData.Ratings[1].Value +
+                    space + 'IMDb Rating: ' + jsonData.imdbRating + "\n";
+    
+                console.log(output);
+                writeToLog(output);
+            }
+        });
     //   `node liri.js concert-this <artist/band name here>`
     //   * This will search the Bands in Town Artist Events API (`"https://rest.bandsintown.com/artists/" + artist + "/events?app_id=codingbootcamp"`) for an artist and render the following information about each event to the terminal:
         //   * Name of the venue
