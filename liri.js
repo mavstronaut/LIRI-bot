@@ -10,6 +10,22 @@ const Spotify = require('node-spotify-api');
 var spotify = new Spotify(keys.spotify);
 // const bands = new Bands(keys.bands)
 
+
+function writeToLog(data) {
+    fs.appendFile("log.txt", '\r\n\r\n', function(err) {
+        if (err) {
+            return console.log(err);
+        }
+    });
+
+    fs.appendFile("log.txt", (data), function(err) {
+        if (err) {
+            return console.log(err);
+        }
+        console.log(space + "log.txt was updated!");
+    });
+}
+
 let space = "\n"
 let header = "Sure. I'll share what I found: "
 let cmd = process.argv[1];
@@ -51,23 +67,51 @@ function concertThis(search) {
         search = "Trevor Hall"
     }
 
-    let urlHit = "https://rest.bandsintown.com/artists/" + search + "/events?app_id=codingbootcamp";
-
-        request(urlHit, function(err, res, body) {
-            if (err) {
-                console.log('Error occurred: ' + err);
-                return;
-            } else {
-                let jsonData = JSON.parse(body);
+    axios.get("https://rest.bandsintown.com/artists/" + search + "/events?app_id=codingbootcamp")
+        
+    .then(function(response) {
                 output = space + header +
                     space + 'venue: ' + jsonData.venue.name
                     space + 'Date: ' + jsonData.formatted_datetime +
                     space + 'Location: ' + jsonData.formatted_location +
 
+/*
+  // Echoing the search terms and giving the output a header of sorts
+        
+        // Name of the venue
+        console.log("========================\nThe name of the venue:\n" + response.data[0].venue.name);
 
+        // Venue location
+        console.log("in the location of:\n" + chalk.green(response.data[0].venue.city + ", " + response.data[0].venue.region + " " + response.data[0].venue.country));
+
+        // Date of the Event (use moment to format this as "MM/DD/YYYY")
+        var showDate = moment(response.data[0].datetime).format('MM/DD/YYYY');
+        console.log("on the date:\n" + chalk.green(showDate) + "\n========================\n");
+    })
+    .catch(function(error) {
+        if (error.response) {
+          // The request was made and the server responded with a status code
+          // that falls out of the range of 2xx
+          console.log(error.response.data);
+          console.log(error.response.status);
+          console.log(error.response.headers);
+        } else if (error.request) {
+          // The request was made but no response was received
+          // `error.request` is an object that comes back with details pertaining to the error that occurred.
+          console.log(error.request);
+        } else {
+          // Something happened in setting up the request that triggered an Error
+          console.log("Error", error.message);
+        }
+        console.log(error.config);
+      });
+}
+
+
+*/
     
                 console.log(output);
-                // writeToLog(output);
+                writeToLog(output);
             }
         });
     //   `node liri.js concert-this <artist/band name here>`
@@ -90,7 +134,7 @@ function spotifyThisSong(search) {
                 space + "Artist Name: " + data.tracks.items[0].album.artists[0].name +
                 space + "URL: " + data.tracks.items[0].album.external_urls.spotify;
             console.log(output);
-            // writeToLog(output);
+            writeToLog(output);
         }
     });
 };
@@ -126,7 +170,7 @@ function movieThis(search) {
                     space + 'IMDb Rating: ' + jsonData.imdbRating + "\n";
     
                 console.log(output);
-                // writeToLog(output);
+                writeToLog(output);
             }
         });
   
