@@ -10,6 +10,22 @@ const Spotify = require('node-spotify-api');
 var spotify = new Spotify(keys.spotify);
 // const bands = new Bands(keys.bands)
 
+
+function writeToLog(data) {
+    fs.appendFile("log.txt", '\r\n\r\n', function(err) {
+        if (err) {
+            return console.log(err);
+        }
+    });
+
+    fs.appendFile("log.txt", (data), function(err) {
+        if (err) {
+            return console.log(err);
+        }
+        console.log(space + "log.txt was updated!");
+    });
+}
+
 let space = "\n"
 let header = "Sure. I'll share what I found: "
 let cmd = process.argv[1];
@@ -51,31 +67,37 @@ function concertThis(search) {
         search = "Trevor Hall"
     }
 
-    let urlHit = "https://rest.bandsintown.com/artists/" + search + "/events?app_id=codingbootcamp";
-
-        request(urlHit, function(err, res, body) {
-            if (err) {
-                console.log('Error occurred: ' + err);
-                return;
+    axios.get("https://rest.bandsintown.com/artists/" + search + "/events?app_id=codingbootcamp")    
+    .then(function(response) {
+            var showDate = moment(response.data[0].datetime).format('MM/DD/YYYY');
+            output = space + header +
+                space + 'Venue: ' + response.data[0].venue.name +
+                space + 'Date: ' + showDate +
+                // space + 'Date: ' + response.data[0].formatted_datetime +
+                space + 'Location: ' + response.data[0].venue.city + " " + response.data[0].venue.region + " " + response.data[0].venue.country
+        .catch(function(error) {
+            if (error.response) {
+            // The request was made and the server responded with a status code
+            // that falls out of the range of 2xx
+            console.log(error.response.data);
+            console.log(error.response.status);
+            console.log(error.response.headers);
+            } else if (error.request) {
+            // The request was made but no response was received
+            // `error.request` is an object that comes back with details pertaining to the error that occurred.
+            console.log(error.request);
             } else {
-                let jsonData = JSON.parse(body);
-                output = space + header +
-                    space + 'venue: ' + jsonData.venue.name
-                    space + 'Date: ' + jsonData.formatted_datetime +
-                    space + 'Location: ' + jsonData.formatted_location +
-
-
-    
-                console.log(output);
-                // writeToLog(output);
+            // Something happened in setting up the request that triggered an Error
+            console.log("Error", error.message);
             }
+            console.log(error.config);
         });
-    //   `node liri.js concert-this <artist/band name here>`
-    //   * This will search the Bands in Town Artist Events API (`"https://rest.bandsintown.com/artists/" + artist + "/events?app_id=codingbootcamp"`) for an artist and render the following information about each event to the terminal:
-        //   * Name of the venue
-        //   * Venue location
-        //   * Date of the Event (use moment to format this as "MM/DD/YYYY")
+    });
+    console.log(output);
+    writeToLog(output);
 };
+
+
 
 function spotifyThisSong(search) {
     spotify.search({ type: 'track', query: search }, function(err, data) {
@@ -90,7 +112,7 @@ function spotifyThisSong(search) {
                 space + "Artist Name: " + data.tracks.items[0].album.artists[0].name +
                 space + "URL: " + data.tracks.items[0].album.external_urls.spotify;
             console.log(output);
-            // writeToLog(output);
+            writeToLog(output);
         }
     });
 };
@@ -126,7 +148,7 @@ function movieThis(search) {
                     space + 'IMDb Rating: ' + jsonData.imdbRating + "\n";
     
                 console.log(output);
-                // writeToLog(output);
+                writeToLog(output);
             }
         });
   
@@ -140,6 +162,7 @@ function doWhatItSays() {
     rando = Math.floor(Math.random() * 3);
     switch (rando) {
         case 0:
+            // TODO: add readfile for different random commands. Log different for each search.
             fs.readFile("random.txt", "utf8", function(error, data) {
                 whatdo = data;
         
