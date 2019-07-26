@@ -67,59 +67,35 @@ function concertThis(search) {
         search = "Trevor Hall"
     }
 
-    axios.get("https://rest.bandsintown.com/artists/" + search + "/events?app_id=codingbootcamp")
-        
+    axios.get("https://rest.bandsintown.com/artists/" + search + "/events?app_id=codingbootcamp")    
     .then(function(response) {
                 output = space + header +
-                    space + 'venue: ' + jsonData.venue.name
-                    space + 'Date: ' + jsonData.formatted_datetime +
-                    space + 'Location: ' + jsonData.formatted_location +
-
-/*
-  // Echoing the search terms and giving the output a header of sorts
-        
-        // Name of the venue
-        console.log("========================\nThe name of the venue:\n" + response.data[0].venue.name);
-
-        // Venue location
-        console.log("in the location of:\n" + chalk.green(response.data[0].venue.city + ", " + response.data[0].venue.region + " " + response.data[0].venue.country));
-
-        // Date of the Event (use moment to format this as "MM/DD/YYYY")
-        var showDate = moment(response.data[0].datetime).format('MM/DD/YYYY');
-        console.log("on the date:\n" + chalk.green(showDate) + "\n========================\n");
-    })
-    .catch(function(error) {
-        if (error.response) {
-          // The request was made and the server responded with a status code
-          // that falls out of the range of 2xx
-          console.log(error.response.data);
-          console.log(error.response.status);
-          console.log(error.response.headers);
-        } else if (error.request) {
-          // The request was made but no response was received
-          // `error.request` is an object that comes back with details pertaining to the error that occurred.
-          console.log(error.request);
-        } else {
-          // Something happened in setting up the request that triggered an Error
-          console.log("Error", error.message);
-        }
-        console.log(error.config);
-      });
-}
-
-
-*/
-    
-                console.log(output);
-                writeToLog(output);
+                    space + 'venue: ' + response.data[0].venue.name
+                    space + 'Date: ' + response.data[0].formatted_datetime +
+                    space + 'Location: ' + response.data[0].venue.city + " " + response.data[0].venue.region + " " + response.data[0].venue.country
+        .catch(function(error) {
+            if (error.response) {
+            // The request was made and the server responded with a status code
+            // that falls out of the range of 2xx
+            console.log(error.response.data);
+            console.log(error.response.status);
+            console.log(error.response.headers);
+            } else if (error.request) {
+            // The request was made but no response was received
+            // `error.request` is an object that comes back with details pertaining to the error that occurred.
+            console.log(error.request);
+            } else {
+            // Something happened in setting up the request that triggered an Error
+            console.log("Error", error.message);
             }
+            console.log(error.config);
         });
-    //   `node liri.js concert-this <artist/band name here>`
-    //   * This will search the Bands in Town Artist Events API (`"https://rest.bandsintown.com/artists/" + artist + "/events?app_id=codingbootcamp"`) for an artist and render the following information about each event to the terminal:
-        //   * Name of the venue
-        //   * Venue location
-        //   * Date of the Event (use moment to format this as "MM/DD/YYYY")
+    });
+    console.log(output);
+    writeToLog(output);
 };
+
+
 
 function spotifyThisSong(search) {
     spotify.search({ type: 'track', query: search }, function(err, data) {
