@@ -62,17 +62,10 @@ function concertThis(search) {
                 output = space + header +
                     space + 'Title: ' + jsonData.Title +
                     space + 'Year: ' + jsonData.Year +
-                    space + 'Rated: ' + jsonData.Rated +
-                    space + 'IMDB Rating: ' + jsonData.imdbRating +
-                    space + 'Country: ' + jsonData.Country +
-                    space + 'Language: ' + jsonData.Language +
-                    space + 'Plot: ' + jsonData.Plot +
-                    space + 'Actors: ' + jsonData.Actors +
-                    space + 'Tomato Rating: ' + jsonData.Ratings[1].Value +
-                    space + 'IMDb Rating: ' + jsonData.imdbRating + "\n";
+
     
                 console.log(output);
-                writeToLog(output);
+                // writeToLog(output);
             }
         });
     //   `node liri.js concert-this <artist/band name here>`
@@ -95,7 +88,7 @@ function spotifyThisSong(search) {
                 space + "Artist Name: " + data.tracks.items[0].album.artists[0].name +
                 space + "URL: " + data.tracks.items[0].album.external_urls.spotify;
             console.log(output);
-            writeToLog(output);
+            // writeToLog(output);
         }
     });
 };
@@ -131,7 +124,7 @@ function movieThis(search) {
                     space + 'IMDb Rating: ' + jsonData.imdbRating + "\n";
     
                 console.log(output);
-                writeToLog(output);
+                // writeToLog(output);
             }
         });
   
