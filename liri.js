@@ -126,7 +126,7 @@ function spotifyThisSong(search) {
         } else {
             output =
                 "Ch-ch-check out this info: " +
-                space + "Song Name: " + "'" + search.toUpperCase() + "'" +
+                space + "Song Name: " + "'" + data.tracks.items[0].name + "'" +
                 space + "Album Name: " + data.tracks.items[0].album.name +
                 space + "Artist Name: " + data.tracks.items[0].album.artists[0].name +
                 space + "URL: " + data.tracks.items[0].album.external_urls.spotify;
@@ -192,11 +192,11 @@ function doWhatItSays() {
             spotifyThisSong(whatdo);
             break;
         case 1:
-            whatdo = "Barnacle Goose"
+            whatdo = "Barnacle+Goose"
             concertThis(whatdo);
             break;
         case 2:
-            whatdo = "Saving Private Ryan"
+            whatdo = "Saving+Private+Ryan"
             movieThis(whatdo);
             break;
         };
