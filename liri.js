@@ -36,15 +36,15 @@ let input = process.argv[3];
 let param1 = process.argv[4];
 let param2 = process.argv[5];
 
-console.log("command is: " + cmd);
-console.log("input is: " + input);
-console.log("param1 is: " + param1);
-console.log("param2 is: " + param2);
+// console.log("command is: " + cmd);
+// console.log("input is: " + input);
+// console.log("param1 is: " + param1);
+// console.log("param2 is: " + param2);
 
 search = input;
 
 if (!param1 && !param2) {
-    console.log("no extra arguments")
+    console.log(space)
 } else if (!param2) {
     search = (input+"+"+param1);
 } else {
