@@ -4,6 +4,7 @@ var keys = require("./keys.js");
 const Spotify = require('node-spotify-api');
 let request = require('request');
 let axios = require('axios');
+let moment = require('moment');
 
 // let twitter = require('twitter');
 // let request = require('request');
@@ -85,7 +86,10 @@ function concertThis(search) {
                 space + 'Venue: ' + response.data[0].venue.name +
                 space + 'Date: ' + showDate +
                 // space + 'Date: ' + response.data[0].formatted_datetime +
-                space + 'Location: ' + response.data[0].venue.city + " " + response.data[0].venue.region + " " + response.data[0].venue.country
+                space + 'Location: ' + response.data[0].venue.city + " " + response.data[0].venue.region + " " + response.data[0].venue.country;
+            console.log(output);
+            writeToLog(output);
+            })
         .catch(function(error) {
             if (error.response) {
             // The request was made and the server responded with a status code
@@ -103,9 +107,6 @@ function concertThis(search) {
             }
             console.log(error.config);
         });
-    });
-    console.log(output);
-    writeToLog(output);
 };
 
 
