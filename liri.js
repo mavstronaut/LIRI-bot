@@ -2,6 +2,8 @@ require("dotenv").config();
 const fs = require('fs'); //file system
 var keys = require("./keys.js");
 const Spotify = require('node-spotify-api');
+let request = require('request');
+let axios = require('axios');
 
 // let twitter = require('twitter');
 // let request = require('request');
@@ -28,38 +30,39 @@ function writeToLog(data) {
 
 let space = "\n"
 let header = "Sure. I'll share what I found: "
-let cmd = process.argv[1];
-let input = process.argv[2];
-let param1 = process.argv[3];
-let param2 = process.argv[4];
+let cmd = process.argv[2];
+let input = process.argv[3];
+let param1 = process.argv[4];
+let param2 = process.argv[5];
 
 console.log("command is: " + cmd);
 console.log("input is: " + input);
 console.log("param1 is: " + param1);
 console.log("param2 is: " + param2);
 
-search = (input+" "+param1+" "+param2);
+search = (input+"+"+param1+"+"+param2);
 console.log("the search string is: "+search)
 
 //points to command functions
-if (cmd == "concert-this") {
-    concertThis(input);
-} else if (cmd == "spotify-this-song") {
-    if (!search) {
-        search = "Barnacle Goose";
-    }
-    spotifyThisSong(search);
-} else if (cmd == "movie-this") {
-    movieThis(input);
-} else if (cmd == "do-what-it-says") {
-    doWhatItSays();
-} else {
-    console.log("Hey there, my commands are: ");
-    console.log("Search band info   --     concert-this [artist]");
-    console.log("Search song info   --     spotify-this-song [song]");
-    console.log("Find move info     --     movie-this [movie]");
-    console.log("See what happens   --     do-what-it-says");
+switch (cmd) {
+    case "concert-this": 
+        concertThis(input);
+    case "spotify-this-song": 
+        spotifyThisSong(search);
+    case "movie-this":
+        movieThis(input);
+    case "do-what-it-says":
+        doWhatItSays();
+    default:
+        console.log("Hey there, my commands are: ");
+        console.log("Search band info   --     concert-this [artist]");
+        console.log("Search song info   --     spotify-this-song [song]");
+        console.log("Find move info     --     movie-this [movie]");
+        console.log("See what happens   --     do-what-it-says");
 };
+
+
+
 
 // concert-this
 function concertThis(search) {
@@ -100,6 +103,9 @@ function concertThis(search) {
 
 
 function spotifyThisSong(search) {
+    if (!search) {
+        search = "Dragonfly"
+    }
     spotify.search({ type: 'track', query: search }, function(err, data) {
         if (err) {
             console.log('Error occurred: ' + err);
@@ -107,7 +113,7 @@ function spotifyThisSong(search) {
         } else {
             output =
                 "Ch-ch-check out this info: " +
-                space + "Song Name: " + "'" + songName.toUpperCase() + "'" +
+                space + "Song Name: " + "'" + search.toUpperCase() + "'" +
                 space + "Album Name: " + data.tracks.items[0].album.name +
                 space + "Artist Name: " + data.tracks.items[0].album.artists[0].name +
                 space + "URL: " + data.tracks.items[0].album.external_urls.spotify;
