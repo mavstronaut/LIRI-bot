@@ -29,6 +29,15 @@ function writeToLog(data) {
     });
 }
 
+function prevBand(data) {
+    fs.appendFile("/prevlog/band.json", (data), function(err) {
+        if (err) {
+            return console.log(err);
+        }
+        console.log(space + "Previous band search list was updated!");
+    });
+}
+
 let space = "\n"
 let header = "Sure. I'll share what I found: "
 let cmd = process.argv[2];
@@ -193,6 +202,9 @@ function doWhatItSays() {
             break;
         case 1:
             whatdo = "Barnacle Goose"
+            fs.readFile("prevlog/music.json", "utf8", function(error, data) {
+                whatdo = data
+            });
             concertThis(whatdo);
             break;
         case 2:
