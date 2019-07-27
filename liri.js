@@ -56,12 +56,16 @@ if (!param1 && !param2) {
 switch (cmd) {
     case "concert-this": 
         concertThis(input);
+        break;
     case "spotify-this-song": 
         spotifyThisSong(search);
+        break;
     case "movie-this":
         movieThis(input);
+        break;
     case "do-what-it-says":
         doWhatItSays();
+        break;
     default:
         console.log("Hey there, my commands are: ");
         console.log("Search band info   --     concert-this [artist]");
