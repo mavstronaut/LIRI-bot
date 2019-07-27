@@ -40,8 +40,16 @@ console.log("input is: " + input);
 console.log("param1 is: " + param1);
 console.log("param2 is: " + param2);
 
-search = (input+"+"+param1+"+"+param2);
-console.log("the search string is: "+search)
+search = input;
+
+if (!param1 && !param2) {
+    console.log("no extra arguments")
+} else if (!param2) {
+    search = (input+"+"+param1);
+} else {
+    search = (input+"+"+param1+"+"+param2);
+    console.log("the search string is: "+search)
+};
 
 //points to command functions
 switch (cmd) {
