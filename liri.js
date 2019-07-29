@@ -30,7 +30,7 @@ function writeToLog(data) {
 }
 
 function prevBand(data) {
-    fs.appendFile("/prevlog/band.json", (data), function(err) {
+    fs.appendFile("prevlog/band.json", (data), function(err) {
         if (err) {
             return console.log(err);
         }
@@ -95,14 +95,17 @@ function concertThis(search) {
     axios.get("https://rest.bandsintown.com/artists/" + search + "/events?app_id=codingbootcamp")    
     .then(function(response) {
             var showDate = moment(response.data[0].datetime).format('MM/DD/YYYY');
+            // console.log(response.data[0]);
             output = space + header +
-                space + 'Artist: ' + search +
+                space + 'Artist: ' + response.data[0].lineup +
                 space + 'Venue: ' + response.data[0].venue.name +
                 space + 'Date: ' + showDate +
                 // space + 'Date: ' + response.data[0].formatted_datetime +
                 space + 'Location: ' + response.data[0].venue.city + " " + response.data[0].venue.region + " " + response.data[0].venue.country;
             console.log(output);
             writeToLog(output);
+            let artists = response.data[0].lineup
+            prevBand(artists + ",");
             })
         .catch(function(error) {
             if (error.response) {
