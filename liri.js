@@ -104,10 +104,10 @@ function concertThis(search) {
                 space + 'Location: ' + response.data[0].venue.city + " " + response.data[0].venue.region + " " + response.data[0].venue.country;
             console.log(output);
             writeToLog(output);
-            
+
             let artists = response.data[0].lineup
             artists = JSON.stringify(artists)
-            JSON.parse(artists)
+            JSON.parse(artists);
             prevBand(artists + ",");
             })
         .catch(function(error) {
