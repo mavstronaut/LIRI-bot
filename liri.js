@@ -96,6 +96,7 @@ function concertThis(search) {
     .then(function(response) {
             var showDate = moment(response.data[0].datetime).format('MM/DD/YYYY');
             output = space + header +
+                space + 'Artist: ' + search +
                 space + 'Venue: ' + response.data[0].venue.name +
                 space + 'Date: ' + showDate +
                 // space + 'Date: ' + response.data[0].formatted_datetime +
@@ -135,7 +136,7 @@ function spotifyThisSong(search) {
         } else {
             output =
                 "Ch-ch-check out this info: " +
-                space + "Song Name: " + "'" + search.toUpperCase() + "'" +
+                space + "Song Name: " + "'" + data.tracks.items[0].name + "'" +
                 space + "Album Name: " + data.tracks.items[0].album.name +
                 space + "Artist Name: " + data.tracks.items[0].album.artists[0].name +
                 space + "URL: " + data.tracks.items[0].album.external_urls.spotify;
@@ -193,22 +194,24 @@ function doWhatItSays() {
             // TODO: add readfile for different random commands. Log different for each search.
             fs.readFile("random.txt", "utf8", function(error, data) {
                 whatdo = data;
-        
+                spotifyThisSong(whatdo);
                 if (error) {
                     return console.log(error);
                 }
             });
-            spotifyThisSong(whatdo);
             break;
         case 1:
-            whatdo = "Barnacle Goose"
-            fs.readFile("prevlog/music.json", "utf8", function(error, data) {
-                whatdo = data
-            });
+            // whatdo = "Barnacle Goose"
+            // fs.readFile("prevlog/music.json", "utf8", function(error, data) {
+            //     whatdo = data
+            // });
+
+            whatdo = "John Legend"
+
             concertThis(whatdo);
             break;
         case 2:
-            whatdo = "Saving Private Ryan"
+            whatdo = "Saving+Private+Ryan"
             movieThis(whatdo);
             break;
         };
