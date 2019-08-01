@@ -1,9 +1,5 @@
 # LIRI-bot
 
-##Example links
-    ![liri1](https://user-images.githubusercontent.com/16119635/62291647-740ec400-b432-11e9-9328-eb5f4326d793.png)
-![liri2](https://user-images.githubusercontent.com/16119635/62291705-94d71980-b432-11e9-9b60-12950b63df84.png)
-
 ### Overview
 
 In this assignment, you will make LIRI. LIRI is like iPhone's SIRI. However, while SIRI is a Speech Interpretation and Recognition Interface, LIRI is a _Language_ Interpretation and Recognition Interface. LIRI will be a command line node app that takes in parameters and gives you back data.
@@ -13,7 +9,7 @@ In this assignment, you will make LIRI. LIRI is like iPhone's SIRI. However, whi
 
 # Usage
 
-9. Make it so liri.js can take in one of the following commands:
+- Make it so liri.js can take in one of the following commands:
 
    * `concert-this`
 
@@ -22,6 +18,12 @@ In this assignment, you will make LIRI. LIRI is like iPhone's SIRI. However, whi
    * `movie-this`
 
    * `do-what-it-says`
+
+
+##Example links
+![liri1](https://user-images.githubusercontent.com/16119635/62291647-740ec400-b432-11e9-9328-eb5f4326d793.png)
+![liri2](https://user-images.githubusercontent.com/16119635/62291705-94d71980-b432-11e9-9b60-12950b63df84.png)
+
 
 ### What Each Command Should Do
 
